@@ -1,6 +1,9 @@
 import React from 'react'
 import '@swisscom/sdx/css'
-import { defineCustomElements, setAssetPath } from '@swisscom/sdx'
+import { defineCustomElements } from '@swisscom/sdx'
+// The SDX documentation notes that setAssetPath may require a TS override.
+// @ts-ignore - SDX asset API typing varies by published version
+import { setAssetPath } from '@swisscom/sdx'
 
 void defineCustomElements().then(() => {
   setAssetPath(window.location.origin + '/assets/')
