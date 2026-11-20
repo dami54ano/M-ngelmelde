@@ -9,9 +9,12 @@
     "dev:server": "tsx watch backend/server.ts",
     "build": "npm run check && vite build",
     "check": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "copy-sdx-assets": "node scripts/copy-sdx-assets.mjs",
+    "postinstall": "npm run copy-sdx-assets"
   },
   "dependencies": {
+    "@swisscom/sdx": "latest",
     "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

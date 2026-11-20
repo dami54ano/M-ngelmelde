@@ -43,3 +43,13 @@ Für einen gemeinsamen produktiven Einsatz braucht es eine Datenbank, Anmeldung 
 ## Bürozuordnung testen
 
 `node tests/offices.mjs` prüft Pflichtauswahl, ungültige Büros, standortbezogene Erstellung, getrennte Übersichten und Statusänderungen mit einer temporären Datendatei auf Port 3107. Die vorhandenen Meldungen werden dabei nicht verändert.
+
+## SDX-Migration (Branch feat/sdx-ui-foundation)
+
+Die Grundlage verwendet das offizielle Swisscom-Paket `@swisscom/sdx`: globales CSS, Web-Component-Registrierung und lokale SDX-Assets. Erste Aktionen nutzen `sdx-button`. Die bisherigen Daten, API-Routen und Backend-Funktionen wurden nicht verändert.
+
+**Noch keine vollständige Migration:** Formulare, Standortkacheln, Tabellen, Filter und Dialoge haben noch projektspezifisches Markup und CSS. Prüfe deshalb die konkrete SDX-API und migriere sie schrittweise, bevor der Branch gemergt wird.
+
+Nach Checkout: `npm install` (aktualisiert die noch alte `package-lock.json` und kopiert SDX-Assets), `npm run check`, `npm run build`, `node tests/offices.mjs`. Den aktualisierten Lockfile committen und die installierte SDX-Paketversion fixieren. Die Änderungen konnten hier nicht lokal gebaut oder im Browser geprüft werden.
+
+[Offizielle React-Dokumentation](https://sdx.swisscom.com/latest/get-started/developers/get-to-know-sdx/react-uzdntrO8)

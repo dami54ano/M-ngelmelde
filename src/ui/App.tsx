@@ -1,5 +1,5 @@
 import { offices, type Office } from '../../shared/offices'
-import { useEffect, useMemo, useState } from 'react'
+import { createElement, useEffect, useMemo, useState } from 'react'
 import {
   issueCategories,
   issuePriorities,
@@ -9,6 +9,15 @@ import {
   type IssuePriority,
   type IssueStatus,
 } from '../../shared/issues'
+
+/** Swisscom SDX Web Component. */
+function SdxButton({ label, theme = 'primary', onClick }: {
+  label: string
+  theme?: 'primary' | 'secondary'
+  onClick?: () => void
+}) {
+  return createElement('sdx-button', { label, theme, onClick })
+}
 
 type Filter = 'Alle' | IssueStatus
 
@@ -34,7 +43,7 @@ export default function App() {
         <div className="office-grid">
           {matches.map((item) => <button type="button" className="office-card" key={item.id} onClick={() => setOffice(item)}><span className="office-city">{item.city}{item.category === 'headquarter' && <small>Hauptsitz</small>}</span><strong>{item.address}</strong><span className="office-card-action">Büro auswählen <span aria-hidden="true">›</span></span></button>)}
         </div>
-        {matches.length === 0 && <div className="empty-state" role="status"><strong>Kein Büro gefunden</strong><span>Suche nach einer anderen Stadt oder Adresse.</span><button className="secondary-button" onClick={() => setQuery('')}>Suche zurücksetzen</button></div>}
+        {matches.length === 0 && <div className="empty-state" role="status"><strong>Kein Büro gefunden</strong><span>Suche nach einer anderen Stadt oder Adresse.</span><SdxButton label="Suche zurücksetzen" theme="secondary" onClick={() => setQuery('')} /></div>}
       </main>
     </div>
   )
@@ -141,16 +150,14 @@ function OfficeDashboard({ office, onChangeOffice }: { office: Office; onChangeO
         </div>
       </header>
       <main className="main-content">
-        <div className="office-context"><div><span className="eyebrow">AUSGEWÄHLTES BÜRO</span><strong>{office.label}</strong></div><div className="office-context-actions">{office.sitePlanUrl && <a href={office.sitePlanUrl} target="_blank" rel="noreferrer">Situationsplan ↗</a>}<button className="secondary-button" type="button" onClick={onChangeOffice}>Büro wechseln</button></div></div>
+        <div className="office-context"><div><span className="eyebrow">AUSGEWÄHLTES BÜRO</span><strong>{office.label}</strong></div><div className="office-context-actions">{office.sitePlanUrl && <a href={office.sitePlanUrl} target="_blank" rel="noreferrer">Situationsplan ↗</a>}<SdxButton label="Büro wechseln" theme="secondary" onClick={onChangeOffice} /></div></div>
         <section className="page-intro">
           <div className="intro-copy">
             <div className="eyebrow">GEBÄUDE · MELDUNGEN</div>
             <h1>Alles im Blick.</h1>
             <p>Melde Mängel im Gebäude und verfolge ihre Bearbeitung an einem Ort.</p>
           </div>
-          <button className="primary-button" type="button" onClick={() => setShowForm(true)}>
-            <span aria-hidden="true">＋</span> Mangel melden
-          </button>
+          <SdxButton label="Mangel melden" onClick={() => setShowForm(true)} />
         </section>
 
         <section className="metric-grid" aria-label="Zusammenfassung">
@@ -394,7 +401,7 @@ function IssueDetails({
           </select>
         </label>
         <div className="dialog-actions">
-          <button type="button" className="secondary-button" onClick={onClose}>Schliessen</button>
+          <SdxButton label="Schliessen" theme="secondary" onClick={onClose} />
         </div>
       </section>
     </div>
